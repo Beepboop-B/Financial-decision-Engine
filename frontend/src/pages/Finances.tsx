@@ -1,10 +1,11 @@
 import { useQuery } from '@tanstack/react-query';
 import { fetchUser } from '../api/client';
 import { useAuth } from '../context/AuthContext';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Finances() {
-  const { userId } = useAuth();
+  const { userId, logout } = useAuth();
+  const navigate = useNavigate();
   
   const { data: user, isLoading } = useQuery({ 
     queryKey: ['user', userId], 
@@ -57,8 +58,16 @@ export default function Finances() {
               </div>
             </div>
             
-            <button className="w-full py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50">
-              Edit Financial Profile
+            <button 
+              onClick={() => {
+                // Since the hackathon architecture is frozen, we simulate 'editing' 
+                // by clearing the current local user context and returning to onboarding.
+                logout();
+                navigate('/onboarding');
+              }}
+              className="w-full py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
+            >
+              Reset & Create New Profile
             </button>
           </div>
         </div>
