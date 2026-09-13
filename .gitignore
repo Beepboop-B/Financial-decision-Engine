@@ -1,0 +1,14 @@
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.local
+dist/
+build/
+.pytest_cache/
+dataset/
+data/
+*.zip
+log.txt
+output.csv
